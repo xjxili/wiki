@@ -1,6 +1,7 @@
 package com.my.wiki.config;
 
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +11,7 @@ import org.springframework.core.env.Environment;
 
 
 @ComponentScan("com.my.wiki")
+@MapperScan("com.my.wiki.mapper")
 //SpringBootApplication注解包含ComponentScan 默认扫描文件所在路径下所有子路径的包
 @SpringBootApplication
 public class WikiApplication {
