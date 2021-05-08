@@ -1,12 +1,16 @@
-package com.my.wiki;
+package com.my.wiki.config;
 
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 
+
+@ComponentScan("com.my.wiki")
+//SpringBootApplication注解包含ComponentScan 默认扫描文件所在路径下所有子路径的包
 @SpringBootApplication
 public class WikiApplication {
 
