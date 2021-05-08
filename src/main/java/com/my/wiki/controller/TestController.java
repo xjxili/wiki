@@ -1,5 +1,6 @@
 package com.my.wiki.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 //RestController 等于 Controller + ResponseBody(返回字符串或JSON对象)
 @RestController
 public class TestController {
+
+    @Value("${test.hello:TEST}")
+    private String testHello;
 
     /**
      * GET POST PUT DELETE
@@ -19,7 +23,7 @@ public class TestController {
 //    @RequestMapping(value = "/hello" , method = RequestMethod.GET)
     @GetMapping("/hello")
     public String hello(){
-        return "Hello World";
+        return "Hello World" + testHello;
     }
 
     @PostMapping("/hello/post")
