@@ -2,9 +2,7 @@
   <a-layout>
     <TheHeader></TheHeader>
     <router-view/>
-    <a-layout-footer style="text-align: center">
-      Ant Design ©2018 Created by wiki
-    </a-layout-footer>
+    <TheFooter></TheFooter>
   </a-layout>
 </template>
 <script lang="ts">
@@ -12,12 +10,14 @@ import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/
 import { defineComponent, ref } from 'vue';
 
 import TheHeader from "@/components/TheHeader.vue";
+import TheFooter from "@/components/TheFooter.vue";
 export default defineComponent({
   components: {
     UserOutlined,
     LaptopOutlined,
     NotificationOutlined,
-    TheHeader
+    TheHeader,
+    TheFooter
   },
   setup() {
     return {
