@@ -1,36 +1,41 @@
 <template>
-  <a-layout>
-    <TheHeader></TheHeader>
-    <router-view/>
-    <a-layout-footer style="text-align: center">
-      Ant Design ©2018 Created by wiki
-    </a-layout-footer>
-  </a-layout>
+  <a-layout-header class="header">
+    <div class="logo" />
+    <a-menu
+        theme="dark"
+        mode="horizontal"
+        v-model:selectedKeys="selectedKeys1"
+        :style="{ lineHeight: '64px' }"
+    >
+      <a-menu-item key="1">nav 1</a-menu-item>
+      <a-menu-item key="2">nav 2</a-menu-item>
+      <a-menu-item key="3">nav 3</a-menu-item>
+    </a-menu>
+  </a-layout-header>
 </template>
+
 <script lang="ts">
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref } from 'vue';
 
-import TheHeader from "@/components/TheHeader.vue";
 export default defineComponent({
   components: {
     UserOutlined,
     LaptopOutlined,
-    NotificationOutlined,
-    TheHeader
+    NotificationOutlined
   },
   setup() {
     return {
-      selectedKeys1: ref<string[]>(['2']),
-      selectedKeys2: ref<string[]>(['1']),
-      collapsed: ref<boolean>(false),
+      selectedKeys1: ref<string[]>(['1']),
+      selectedKeys2: ref<string[]>(['2']),
       openKeys: ref<string[]>(['sub1']),
     };
   },
 });
 </script>
-<style>
-#components-layout-demo-top-side .logo {
+
+<style scoped>
+ .logo {
   float: left;
   width: 120px;
   height: 31px;
