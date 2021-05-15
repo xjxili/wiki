@@ -47,35 +47,21 @@
         </a-menu>
       </a-layout-sider>
       <a-layout-content :style="{ padding: '0 24px', minHeight: '280px' }">
-        <a-list item-layout="vertical" size="large" :pagination="pagination" :data-source="listData">
-          <template #footer>
-            <div>
-              <b>ant design vue</b>
-              footer part
-            </div>
-          </template>
+        <a-list item-layout="vertical" size="large" :grid="{ gutter:20,column:3}" :data-source="ebooks">
           <template #renderItem="{ item }">
-            <a-list-item key="item.title">
+            <a-list-item key="item.name">
               <template #actions>
           <span v-for="{ type, text } in actions" :key="type">
             <component v-bind:is="type" style="margin-right: 8px" />
             {{ text }}
           </span>
               </template>
-              <template #extra>
-                <img
-                    width="272"
-                    alt="logo"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                />
-              </template>
               <a-list-item-meta :description="item.description">
                 <template #title>
-                  <a :href="item.href">{{ item.title }}</a>
+                  <a :href="item.href">{{ item.name }}</a>
                 </template>
-                <template #avatar><a-avatar :src="item.avatar" /></template>
+                <template #avatar><a-avatar :src="item.cover" /></template>
               </a-list-item-meta>
-              {{ item.content }}
             </a-list-item>
           </template>
         </a-list>
@@ -89,18 +75,6 @@ import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/
 import { defineComponent, ref ,onMounted ,reactive ,toRef} from 'vue';
 import axios from 'axios'
 
-const listData: Record<string, string>[] = [];
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: 'https://www.antdv.com/',
-    title: `ant design vue part ${i}`,
-    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-    description:
-        'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content:
-        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-  });
-}
 
 export default defineComponent({
   components: {
@@ -127,7 +101,7 @@ export default defineComponent({
 
     //写到setup方法中，有可能导致界面还未渲染出来，操作DOM就会报错
     onMounted(()=>{
-      axios.get("http://localhost:8880/ebook/list?name=spring")
+      axios.get("http://localhost:8880/ebook/list")
           .then(res => {
             const data = res.data
             ebooks.value = data.content
@@ -141,10 +115,19 @@ export default defineComponent({
       selectedKeys1: ref<string[]>(['2']),
       selectedKeys2: ref<string[]>(['1']),
       openKeys: ref<string[]>(['sub1']),
-      listData,
       pagination,
       actions
     };
   },
 });
 </script>
+
+<style scoped>
+  .ant-avatar{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 8%;
+    margin:5px 0;
+  }
+</style>

@@ -20,9 +20,12 @@ public class EbookService {
 
 
     public List<EbookResp> list(EbookReq req){
+
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
-        criteria.andNameLike("%" + req.getName() + "%");
+        if(req.getName()!=null) {
+            criteria.andNameLike("%" + req.getName() + "%");
+        }
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
 
         return CopyUtil.copyList(ebookList,EbookResp.class);
