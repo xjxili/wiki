@@ -47,7 +47,10 @@
         </a-menu>
       </a-layout-sider>
       <a-layout-content :style="{ padding: '0 24px', minHeight: '280px' }">
-        Content
+        <pre>
+{{ebooks}}
+{{ebooks2}}
+        </pre>
       </a-layout-content>
     </a-layout>
   </a-layout-content>
@@ -55,7 +58,7 @@
 
 <script lang="ts">
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons-vue';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref ,onMounted ,reactive ,toRef} from 'vue';
 import axios from 'axios'
 export default defineComponent({
   components: {
@@ -64,11 +67,23 @@ export default defineComponent({
     NotificationOutlined,
   },
   setup() {
-    axios.get("http://localhost:8880/ebook/list?name=spring")
-    .then(res => {
-      console.log(res)
+    //ref()可以定义响应式的数据
+    const ebooks = ref()
+    const ebooks1 = reactive({books:[]})
+
+    //写到setup方法中，有可能导致界面还未渲染出来，操作DOM就会报错
+    onMounted(()=>{
+      axios.get("http://localhost:8880/ebook/list?name=spring")
+          .then(res => {
+            const data = res.data
+            ebooks.value = data.content
+            ebooks1.books = data.content
+            console.log(res)
+          })
     })
     return {
+      ebooks,
+      ebooks2 : toRef(ebooks1,"books"),
       selectedKeys1: ref<string[]>(['2']),
       selectedKeys2: ref<string[]>(['1']),
       openKeys: ref<string[]>(['sub1']),
