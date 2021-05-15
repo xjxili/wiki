@@ -101,7 +101,8 @@ export default defineComponent({
 
     //写到setup方法中，有可能导致界面还未渲染出来，操作DOM就会报错
     onMounted(()=>{
-      axios.get(process.env.VUE_APP_SERVER + "/ebook/list")
+      console.log('mmmm')
+      axios.get("/ebook/list")
           .then(res => {
             const data = res.data
             ebooks.value = data.content
